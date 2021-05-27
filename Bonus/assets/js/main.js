@@ -1,7 +1,7 @@
 const app = new Vue({
   el: "#app",
   data: {
-    mailList: [1],
+    mailList: [],
   },
   methods: {},
   mounted() {
@@ -12,11 +12,11 @@ const app = new Vue({
           .get("https://flynn.boolean.careers/exercises/api/random/mail")
           .then((response) => {
             promesse.push(response.data.response);
+            if (promesse.length == 10) {
+              app.mailList = promesse;
+            }
           });
       }
-      Promise.all(promesse).then(() => {
-        app.mailList = promesse;
-      });
     }
     getMail();
     console.log(this.mailList);
